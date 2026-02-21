@@ -47,71 +47,46 @@ class GameViewModel(
          viewModelScope.launch {
              _tileState.update {
                  it.copy(
-                     enabledTiles = false,
+                     isEnabledTiles = false,
                      informMessage = R.string.remember.toString(),
                  )
              }
 
              for (i in _tileState.value.gameSequence) {
-
-                 val activeTile = _tileState.value.tiles[i].copy(
-                     isActive = true
-                 )
-                 val newList = _tileState.value.tiles.toMutableList()
-                 newList[i] = activeTile
-
-                 _tileState.update {
-                     it.copy(
-                         tiles = newList
-                     )
-                 }
+                 mutableListTiles(i,true)
 
                  delay(1000)
 
-                 newList[i] = activeTile.copy(isActive = false)
-
-                 _tileState.update {
-                     it.copy(
-                         tiles = newList
-                     )
-                 }
+                 mutableListTiles(i,false)
 
                  delay(500)
-
              }
 
              _tileState.update {
                  it.copy(
-                     enabledTiles = true,
+                     isEnabledTiles = true,
                      informMessage = R.string.repeat.toString(),
                  )
              }
          }
     }
 
+    fun mutableListTiles(index: Int, isActive: Boolean) {
+        _tileState.update { state ->
+            val newList = state.tiles.toMutableList()
+            newList[index] = state.tiles[index].copy(isActive = isActive)
+            state.copy(tiles = newList)
+        }
+    }
+
     fun playerTileSelection(selectedTile: Int) {
         viewModelScope.launch {
-            val activeTile = _tileState.value.tiles[selectedTile].copy(
-                isActive = true
-            )
-            val newList = _tileState.value.tiles.toMutableList()
-            newList[selectedTile] = activeTile
 
-            _tileState.update {
-                it.copy(
-                    tiles = newList
-                )
-            }
+            mutableListTiles(selectedTile,true)
 
             delay(300)
 
-            newList[selectedTile] = activeTile.copy(isActive = false)
-
-            _tileState.update {
-                it.copy(
-                    tiles = newList
-                )
-            }
+            mutableListTiles(selectedTile,false)
 
             when(checkPlayerSequenceUseCase(selectedTile)) {
                 GameResult.Correct -> {}
@@ -128,7 +103,7 @@ class GameViewModel(
                 GameResult.LevelCompleted -> {
                     _tileState.update {
                         it.copy(
-                            record = it.record + 1,
+                            score = it.score + 1,
                             informMessage = selectMessageCompleteLevel(),
                         )
                     }
@@ -159,42 +134,31 @@ class GameViewModel(
     }
 
     private suspend fun showBlinkingWrong() {
-        repeat(3) {
-            for (i in 0 until _tileState.value.tiles.size) {
-
-                val activeTile = _tileState.value.tiles[i].copy(
-                    isActive = true
-                )
-                val newList = _tileState.value.tiles.toMutableList()
-                newList[i] = activeTile
-
-                _tileState.update {
-                    it.copy(
-                        tiles = newList
-                    )
-                }
-
-                delay(300)
-            }
-
-            for (i in 0 until _tileState.value.tiles.size) {
-
-                val activeTile = _tileState.value.tiles[i].copy(
-                    isActive = false
-                )
-                val newList = _tileState.value.tiles.toMutableList()
-                newList[i] = activeTile
-
-                _tileState.update {
-                    it.copy(
-                        tiles = newList
-                    )
-                }
-
-                delay(300)
-            }
+        _tileState.update {
+            it.copy(
+                isEnabledTiles = false,
+            )
         }
 
+        repeat(3) {
+            for (i in 0 until _tileState.value.tiles.size) {
+                mutableListTiles(i,true)
+            }
+
+            delay(300)
+
+            for (i in 0 until _tileState.value.tiles.size) {
+                mutableListTiles(i,false)
+            }
+
+            delay(300)
+        }
+
+        _tileState.update {
+            it.copy(
+                isEnabledTiles = true,
+            )
+        }
     }
 
     fun refreshGame() {
@@ -205,6 +169,7 @@ class GameViewModel(
                 it.copy(
                     informMessage = R.string.restart.toString(),
                     showRepeatButton = false,
+                    isEnabledTiles = false,
                 )
             }
 
@@ -212,8 +177,9 @@ class GameViewModel(
 
             _tileState.update {
                 it.copy(
-                    record = 0,
-                    gameSequence = creatureTileSectionUseCase()
+                    score = 0,
+                    gameSequence = creatureTileSectionUseCase(),
+                    isEnabledTiles = true,
                 )
             }
 
