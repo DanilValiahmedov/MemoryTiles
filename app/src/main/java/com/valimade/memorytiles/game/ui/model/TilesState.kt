@@ -9,4 +9,6 @@ data class TilesState(
     val tiles: List<TileUi> = emptyList(),
     val gameSequence: List<Int> = emptyList(),
     val enabledTiles: Boolean = true,
+    val informMessage: String = "",
+    val showRepeatButton: Boolean = false,
 )

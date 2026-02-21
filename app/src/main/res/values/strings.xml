@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">MemoryTiles</string>
+
+    <string name="remember">Запоминайте</string>
+    <string name="repeat">Повторите</string>
+
+    <string name="successfully">Успешно</string>
+    <string name="wonderfully">Замечателньо</string>
+    <string name="great">Отлично</string>
+    <string name="excellently">Превосходно</string>
+    <string name="perfectly">Идеально</string>
+
+    <string name="mistake">Вы ошиблись</string>
+    <string name="incorrect">Неверно</string>
+    <string name="wrong">Неправильно</string>
+    <string name="sorry">Сожалеем</string>
+
+    <string name="restart">Перезапускаем игру</string>
 </resources>
