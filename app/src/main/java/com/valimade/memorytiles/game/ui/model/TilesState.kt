@@ -5,9 +5,8 @@ import com.valimade.memorytiles.ui.theme.BorderActive
 import com.valimade.memorytiles.ui.theme.BorderInactive
 
 data class TilesState(
-    val isActive: Boolean,
-    val colorTileActive: Color,
-    val colorTileInactive: Color,
-    val colorBorderActive: Color = BorderActive,
-    val colorBorderInactive: Color = BorderInactive,
+    val record: Int = 0,
+    val tiles: List<TileUi> = emptyList(),
+    val gameSequence: List<Int> = emptyList(),
+    val enabledTiles: Boolean = true,
 )
