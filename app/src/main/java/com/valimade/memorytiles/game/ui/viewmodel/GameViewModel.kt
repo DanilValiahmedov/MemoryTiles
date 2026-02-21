@@ -18,6 +18,13 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
+const val TILES_ACTIVE_GAME_TIME = 800L
+const val TILES_INACTIVE_GAME_TIME = 500L
+const val TAP_PLAYER_TIME = 300L
+const val QUANTITY_REPEAT_AN_ERROR = 3
+const val BLINKING_WRONG_TIME = 200L
+const val REFRESH_TIME_GAME = 1000L
+
 class GameViewModel(
     private val tileMapper: TileMapper,
     private val startGameUseCase: StartGameUseCase,
@@ -55,11 +62,11 @@ class GameViewModel(
              for (i in _tileState.value.gameSequence) {
                  mutableListTiles(i,true)
 
-                 delay(1000)
+                 delay(TILES_ACTIVE_GAME_TIME)
 
                  mutableListTiles(i,false)
 
-                 delay(500)
+                 delay(TILES_INACTIVE_GAME_TIME)
              }
 
              _tileState.update {
@@ -84,7 +91,7 @@ class GameViewModel(
 
             mutableListTiles(selectedTile,true)
 
-            delay(300)
+            delay(TAP_PLAYER_TIME)
 
             mutableListTiles(selectedTile,false)
 
@@ -140,18 +147,18 @@ class GameViewModel(
             )
         }
 
-        repeat(3) {
+        repeat(QUANTITY_REPEAT_AN_ERROR) {
             for (i in 0 until _tileState.value.tiles.size) {
                 mutableListTiles(i,true)
             }
 
-            delay(300)
+            delay(BLINKING_WRONG_TIME)
 
             for (i in 0 until _tileState.value.tiles.size) {
                 mutableListTiles(i,false)
             }
 
-            delay(300)
+            delay(BLINKING_WRONG_TIME)
         }
 
         _tileState.update {
@@ -173,7 +180,7 @@ class GameViewModel(
                 )
             }
 
-            delay(1000)
+            delay(REFRESH_TIME_GAME)
 
             _tileState.update {
                 it.copy(
