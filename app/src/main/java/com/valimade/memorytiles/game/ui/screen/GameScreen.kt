@@ -20,8 +20,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -56,7 +58,8 @@ fun GameScreen(
         Column(
             modifier = modifier
                 .fillMaxSize()
-                .padding(16.dp)
+                .padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -65,6 +68,7 @@ fun GameScreen(
             ) {
                 Text(
                     text = "Счет: ${tileState.score}",
+                    color = Color.White,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
                 )
@@ -74,15 +78,18 @@ fun GameScreen(
                 }) {
                     Icon(
                         imageVector = Icons.Default.Refresh,
-                        contentDescription = "Обновить"
-                    )
+                        contentDescription = "Обновить",
+                        tint =Color.White,
+
+                        )
                 }
             }
 
             Spacer(modifier = Modifier.weight(1f))
 
             Text(
-                text = tileState.informMessage,
+                text = stringResource(id = tileState.informMessage),
+                color = Color.White,
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
             )

@@ -55,7 +55,7 @@ class GameViewModel(
              _tileState.update {
                  it.copy(
                      isEnabledTiles = false,
-                     informMessage = R.string.remember.toString(),
+                     informMessage = R.string.remember,
                  )
              }
 
@@ -72,7 +72,7 @@ class GameViewModel(
              _tileState.update {
                  it.copy(
                      isEnabledTiles = true,
-                     informMessage = R.string.repeat.toString(),
+                     informMessage = R.string.repeat,
                  )
              }
          }
@@ -119,24 +119,24 @@ class GameViewModel(
         }
     }
 
-    private fun selectMessageCompleteLevel(): String {
+    private fun selectMessageCompleteLevel(): Int {
         return when((1..5).random()) {
-            1 -> R.string.successfully.toString()
-            2 -> R.string.wonderfully.toString()
-            3 -> R.string.great.toString()
-            4 -> R.string.excellently.toString()
-            5 -> R.string.perfectly.toString()
-            else -> R.string.successfully.toString()
+            1 -> R.string.successfully
+            2 -> R.string.wonderfully
+            3 -> R.string.great
+            4 -> R.string.excellently
+            5 -> R.string.perfectly
+            else -> R.string.successfully
         }
     }
 
-    private fun selectMessageWrong(): String {
+    private fun selectMessageWrong(): Int {
         return when((1..4).random()) {
-            1 -> R.string.mistake.toString()
-            2 -> R.string.incorrect.toString()
-            3 -> R.string.wrong.toString()
-            4 -> R.string.sorry.toString()
-            else -> R.string.mistake.toString()
+            1 -> R.string.mistake
+            2 -> R.string.incorrect
+            3 -> R.string.wrong
+            4 -> R.string.sorry
+            else -> R.string.mistake
         }
     }
 
@@ -174,7 +174,7 @@ class GameViewModel(
 
             _tileState.update {
                 it.copy(
-                    informMessage = R.string.restart.toString(),
+                    informMessage = R.string.restart,
                     showRepeatButton = false,
                     isEnabledTiles = false,
                 )
