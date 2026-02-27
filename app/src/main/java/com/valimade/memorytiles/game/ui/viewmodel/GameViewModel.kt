@@ -18,9 +18,10 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-const val TILES_ACTIVE_GAME_TIME = 800L
+const val TILES_ACTIVE_GAME_TIME = 400L
 const val TILES_INACTIVE_GAME_TIME = 500L
 const val TAP_PLAYER_TIME = 300L
+const val LEVEL_COMPLETED_TIME = 1000L
 const val QUANTITY_REPEAT_AN_ERROR = 3
 const val BLINKING_WRONG_TIME = 200L
 const val REFRESH_TIME_GAME = 1000L
@@ -104,6 +105,7 @@ class GameViewModel(
                         it.copy(
                             informMessage = selectMessageWrong(),
                             showRepeatButton = true,
+                            isEnabledTiles = false,
                         )
                     }
                 }
@@ -114,6 +116,10 @@ class GameViewModel(
                             informMessage = selectMessageCompleteLevel(),
                         )
                     }
+
+                    delay(LEVEL_COMPLETED_TIME)
+
+                    showGameTiles()
                 }
             }
         }

@@ -33,6 +33,7 @@ class GameEngine(
             if(playerSequence.size != gameSequence.size) GameResult.Correct
             else {
                 playerSequence.clear()
+                creatureGameTileSection()
                 GameResult.LevelCompleted
             }
         }

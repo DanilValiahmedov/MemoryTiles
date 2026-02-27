@@ -24,8 +24,8 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier
                             .fillMaxSize()
                             .padding(innerPadding),
-                        difficulty = DifficultyLevel.AVERAGE,
-                        colorSelection = TileColors.RED,
+                        difficulty = DifficultyLevel.EASY,
+                        colorSelection = TileColors.BLUE,
                     )
                 }
             }
