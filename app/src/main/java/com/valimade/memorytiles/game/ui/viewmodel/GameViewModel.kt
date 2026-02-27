@@ -35,8 +35,8 @@ class GameViewModel(
     private val _tileState = MutableStateFlow(TilesState())
     val tileState = _tileState.asStateFlow()
 
-    init {
-        val listTilesDomain = startGameUseCase(DifficultyLevel.AVERAGE, TileColors.RED)
+    fun startGame(difficulty: DifficultyLevel, colorSelection: TileColors) {
+        val listTilesDomain = startGameUseCase(difficulty, colorSelection)
         val listTilesUi = listTilesDomain.map { domainTile ->
             tileMapper.domainToUi(domainTile)
         }

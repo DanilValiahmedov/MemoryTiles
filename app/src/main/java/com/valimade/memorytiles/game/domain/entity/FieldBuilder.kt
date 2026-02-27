@@ -18,7 +18,7 @@ import com.valimade.memorytiles.ui.theme.Tile8Inactive
 import com.valimade.memorytiles.ui.theme.Tile9Active
 import com.valimade.memorytiles.ui.theme.Tile9Inactive
 
-class FieldBuilder {
+object FieldBuilder {
 
     fun fieldConstruction(difficultyLevel: DifficultyLevel, colorSelection: TileColors): List<Tile> {
         val fieldSize = difficultyLevel.quantities
