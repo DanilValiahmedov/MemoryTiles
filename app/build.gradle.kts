@@ -40,7 +40,9 @@ android {
 }
 
 dependencies {
-
+    //DataStore
+    implementation(libs.androidx.datastore.preferences)
+    //koin
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.compose)
 
