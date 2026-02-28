@@ -12,9 +12,11 @@ import com.valimade.memorytiles.game.domain.usecase.RefreshGameUseCase
 import com.valimade.memorytiles.game.domain.usecase.StartGameUseCase
 import com.valimade.memorytiles.game.ui.mapper.TileMapper
 import com.valimade.memorytiles.game.ui.model.TilesState
+import com.valimade.memorytiles.storage.domain.score.ScoreInteractor
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -32,23 +34,33 @@ class GameViewModel(
     private val creatureTileSectionUseCase: CreatureTileSectionUseCase,
     private val checkPlayerSequenceUseCase: CheckPlayerSequenceUseCase,
     private val refreshGameUseCase: RefreshGameUseCase,
+    private val scoreInteractor: ScoreInteractor,
 ): ViewModel() {
     private val _tileState = MutableStateFlow(TilesState())
+    private var difficultyLevel = DifficultyLevel.EASY
     val tileState = _tileState.asStateFlow()
 
     fun startGame(difficulty: DifficultyLevel, colorSelection: TileColors) {
-        val listTilesDomain = startGameUseCase(difficulty, colorSelection)
-        val listTilesUi = listTilesDomain.map { domainTile ->
-            tileMapper.domainToUi(domainTile)
-        }
-        _tileState.update {
-            it.copy(
-                tiles = listTilesUi,
-                gameSequence = creatureTileSectionUseCase()
-            )
-        }
+        viewModelScope.launch {
+            difficultyLevel = difficulty
+            val listTilesDomain = startGameUseCase(difficulty, colorSelection)
+            val listTilesUi = listTilesDomain.map { domainTile ->
+                tileMapper.domainToUi(domainTile)
+            }
 
-        showGameTiles()
+            val bestScore = scoreInteractor.getScore(difficulty).first()
+            val gameSequence = creatureTileSectionUseCase()
+
+            _tileState.update {
+                it.copy(
+                    tiles = listTilesUi,
+                    gameSequence = gameSequence,
+                    bestScore = bestScore,
+                )
+            }
+
+            showGameTiles()
+        }
     }
 
     fun showGameTiles() {
@@ -122,9 +134,14 @@ class GameViewModel(
                     }
                 }
                 GameResult.LevelCompleted -> {
+                    val score = _tileState.value.score + 1
+                    scoreInteractor.saveScoreIfBest(difficultyLevel, score)
+                    val bestScore = scoreInteractor.getScore(difficultyLevel).first()
+
                     _tileState.update {
                         it.copy(
-                            score = it.score + 1,
+                            score = score,
+                            bestScore = bestScore,
                             informMessage = selectMessageCompleteLevel(),
                             isEnabledTiles = false,
                             currentStepPerRound = 0,
@@ -198,6 +215,7 @@ class GameViewModel(
                     informMessage = R.string.restart,
                     showRepeatButton = false,
                     isEnabledTiles = false,
+                    showSteps = false,
                 )
             }
 
@@ -208,6 +226,7 @@ class GameViewModel(
                     score = 0,
                     gameSequence = creatureTileSectionUseCase(),
                     isEnabledTiles = true,
+                    showSteps = true,
                 )
             }
 

@@ -34,6 +34,7 @@ val gameModule = module {
             creatureTileSectionUseCase = get(),
             checkPlayerSequenceUseCase = get(),
             refreshGameUseCase = get(),
+            scoreInteractor = get(),
         )
     }
 
