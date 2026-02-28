@@ -18,9 +18,9 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-const val TILES_ACTIVE_GAME_TIME = 400L
-const val TILES_INACTIVE_GAME_TIME = 500L
-const val TAP_PLAYER_TIME = 300L
+const val TILES_ACTIVE_GAME_TIME = 200L
+const val TILES_INACTIVE_GAME_TIME = 300L
+const val TAP_PLAYER_TIME = 200L
 const val LEVEL_COMPLETED_TIME = 1000L
 const val QUANTITY_REPEAT_AN_ERROR = 3
 const val BLINKING_WRONG_TIME = 200L
@@ -67,7 +67,7 @@ class GameViewModel(
 
                  mutableListTiles(i,false)
 
-                 delay(TILES_INACTIVE_GAME_TIME)
+                 if(i != _tileState.value.gameSequence.last()) delay(TILES_INACTIVE_GAME_TIME)
              }
 
              _tileState.update {
@@ -89,6 +89,7 @@ class GameViewModel(
 
     fun playerTileSelection(selectedTile: Int) {
         viewModelScope.launch {
+            _tileState.update { it.copy(isEnabledTiles = false) }
 
             mutableListTiles(selectedTile,true)
 
@@ -97,7 +98,9 @@ class GameViewModel(
             mutableListTiles(selectedTile,false)
 
             when(checkPlayerSequenceUseCase(selectedTile)) {
-                GameResult.Correct -> {}
+                GameResult.Correct -> {
+                    _tileState.update { it.copy(isEnabledTiles = true) }
+                }
                 GameResult.Wrong -> {
                     showBlinkingWrong()
 
@@ -114,6 +117,7 @@ class GameViewModel(
                         it.copy(
                             score = it.score + 1,
                             informMessage = selectMessageCompleteLevel(),
+                            isEnabledTiles = false,
                         )
                     }
 

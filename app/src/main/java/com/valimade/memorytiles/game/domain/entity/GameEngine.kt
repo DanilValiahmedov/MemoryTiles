@@ -20,7 +20,7 @@ class GameEngine(
     }
 
     fun creatureGameTileSection(): List<Int> {
-        val newSection = (1..difficultyLevel.quantities).random() - 1
+        val newSection = (0 until difficultyLevel.quantities).random()
         gameSequence.add(newSection)
         return gameSequence
     }
