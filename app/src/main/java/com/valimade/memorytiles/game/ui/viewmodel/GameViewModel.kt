@@ -74,6 +74,8 @@ class GameViewModel(
                  it.copy(
                      isEnabledTiles = true,
                      informMessage = R.string.repeat,
+                     maxStepsPerRound = it.gameSequence.size,
+                     showSteps = true,
                  )
              }
          }
@@ -99,7 +101,12 @@ class GameViewModel(
 
             when(checkPlayerSequenceUseCase(selectedTile)) {
                 GameResult.Correct -> {
-                    _tileState.update { it.copy(isEnabledTiles = true) }
+                    _tileState.update {
+                        it.copy(
+                            isEnabledTiles = true,
+                            currentStepPerRound = it.currentStepPerRound + 1
+                        )
+                    }
                 }
                 GameResult.Wrong -> {
                     showBlinkingWrong()
@@ -109,6 +116,8 @@ class GameViewModel(
                             informMessage = selectMessageWrong(),
                             showRepeatButton = true,
                             isEnabledTiles = false,
+                            currentStepPerRound = 0,
+                            showSteps = false,
                         )
                     }
                 }
@@ -118,6 +127,8 @@ class GameViewModel(
                             score = it.score + 1,
                             informMessage = selectMessageCompleteLevel(),
                             isEnabledTiles = false,
+                            currentStepPerRound = 0,
+                            showSteps = false,
                         )
                     }
 

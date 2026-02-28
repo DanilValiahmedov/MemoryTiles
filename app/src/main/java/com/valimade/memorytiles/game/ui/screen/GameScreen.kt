@@ -98,28 +98,42 @@ fun GameScreen(
                 fontWeight = FontWeight.Bold,
             )
 
-            if(tileState.showRepeatButton) {
-                Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
-                Button(
-                    shape = RoundedCornerShape(8.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Color.White,
-                        contentColor = Color.Black
-                    ),
-                    modifier = Modifier
-                        .height(48.dp),
-                    elevation = ButtonDefaults.buttonElevation(
-                        defaultElevation = 2.dp,
-                        pressedElevation = 0.dp
-                    ),
-                    onClick = {
-                        viewModel.refreshGame()
-                    },
-                ) {
+            Box(
+                modifier = Modifier.height(56.dp)
+            ) {
+                if(tileState.showRepeatButton) {
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    Button(
+                        shape = RoundedCornerShape(8.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color.White,
+                            contentColor = Color.Black
+                        ),
+                        modifier = Modifier
+                            .height(48.dp),
+                        elevation = ButtonDefaults.buttonElevation(
+                            defaultElevation = 2.dp,
+                            pressedElevation = 0.dp
+                        ),
+                        onClick = {
+                            viewModel.refreshGame()
+                        },
+                    ) {
+                        Text(
+                            text = "Заново",
+                            fontWeight = FontWeight.Medium
+                        )
+                    }
+                }
+                else if (tileState.showSteps) {
                     Text(
-                        text = "Заново",
-                        fontWeight = FontWeight.Medium
+                        text = "Шаг: ${tileState.currentStepPerRound} из ${tileState.maxStepsPerRound}",
+                        color = Color.White,
+                        fontSize = 24.sp,
+                        fontWeight = FontWeight.Bold,
                     )
                 }
             }
