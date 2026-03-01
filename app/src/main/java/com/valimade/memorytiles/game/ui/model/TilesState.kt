@@ -1,6 +1,8 @@
 package com.valimade.memorytiles.game.ui.model
 
+import androidx.compose.ui.graphics.Color
 import com.valimade.memorytiles.R
+import com.valimade.memorytiles.ui.theme.EmphasisGrayTheme
 
 data class TilesState(
     val score: Int = 0,
@@ -13,4 +15,6 @@ data class TilesState(
     val showSteps: Boolean = false,
     val currentStepPerRound: Int = 0,
     val maxStepsPerRound: Int = 0,
+    val backgroundImage: Int = R.drawable.back_gray,
+    val emphasisColor: Color = EmphasisGrayTheme,
 )

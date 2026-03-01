@@ -39,6 +39,7 @@ val gameModule = module {
             checkPlayerSequenceUseCase = get(),
             refreshGameUseCase = get(),
             scoreInteractor = get(),
+            themeInteractor = get(),
         )
     }
 
