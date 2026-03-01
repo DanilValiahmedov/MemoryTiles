@@ -28,7 +28,6 @@ class ScoreDataStore(
             if (score > currentBest) {
                 prefs[key] = score
             }
-            prefs[keyForDifficulty(difficultyLevel)] = score
         }
     }
 
