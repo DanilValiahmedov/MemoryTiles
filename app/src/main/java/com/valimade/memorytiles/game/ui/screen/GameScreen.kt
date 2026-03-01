@@ -1,6 +1,5 @@
 package com.valimade.memorytiles.game.ui.screen
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -54,9 +53,9 @@ fun GameScreen(
 
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
-            painter = painterResource(id = R.drawable.back),
+            painter = painterResource(id = R.drawable.back_red),
             contentDescription = "Задний фон",
-            contentScale = ContentScale.Crop,
+            contentScale = ContentScale.FillBounds,
             modifier = Modifier.fillMaxSize()
         )
 
@@ -118,7 +117,7 @@ fun GameScreen(
                         shape = RoundedCornerShape(8.dp),
                         colors = ButtonDefaults.buttonColors(
                             containerColor = Color.White,
-                            contentColor = Color.Black
+                            contentColor = Color.Black,
                         ),
                         modifier = Modifier
                             .height(48.dp),

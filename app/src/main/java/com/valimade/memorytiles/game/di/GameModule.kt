@@ -1,6 +1,7 @@
 package com.valimade.memorytiles.game.di
 
-import com.valimade.memorytiles.game.domain.entity.FieldBuilder
+import com.valimade.memorytiles.game.data.entity.FieldBuilder
+import com.valimade.memorytiles.game.data.utils.Palette
 import com.valimade.memorytiles.game.domain.entity.GameEngine
 import com.valimade.memorytiles.game.domain.usecase.CheckPlayerSequenceUseCase
 import com.valimade.memorytiles.game.domain.usecase.CreatureTileSectionUseCase
@@ -13,8 +14,11 @@ import org.koin.dsl.module
 
 val gameModule = module {
 
+    //Utils
+    single { Palette }
+
     //Entity
-    single { FieldBuilder }
+    single { FieldBuilder(palette = get()) }
     single { GameEngine(fieldBuilder = get()) }
 
     //UseCase

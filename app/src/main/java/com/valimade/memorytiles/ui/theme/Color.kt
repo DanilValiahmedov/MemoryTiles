@@ -61,3 +61,8 @@ val Tile15Inactive = Color(0xFFFF1FD9)
 
 val Tile16Active = Color(0xFF7A4A00)
 val Tile16Inactive = Color(0xFFFFBF1F)
+
+val EmphasisGrayTheme = Color(0xFF53535F)
+val EmphasisRedTheme = Color(0xFFD40434)
+val EmphasisGreenTheme = Color(0xFF00CC99)
+val EmphasisBlueTheme = Color(0xFF4DA6FF)

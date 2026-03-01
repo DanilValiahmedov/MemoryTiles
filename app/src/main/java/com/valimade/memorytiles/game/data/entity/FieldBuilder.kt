@@ -1,10 +1,10 @@
-package com.valimade.memorytiles.game.domain.entity
+package com.valimade.memorytiles.game.data.entity
 
 import androidx.compose.ui.graphics.Color
+import com.valimade.memorytiles.game.data.utils.Palette
 import com.valimade.memorytiles.game.domain.model.DifficultyLevel
 import com.valimade.memorytiles.game.domain.model.Tile
 import com.valimade.memorytiles.game.domain.model.TileColors
-import com.valimade.memorytiles.game.domain.utils.ListPaletteColors
 import com.valimade.memorytiles.ui.theme.Tile11Active
 import com.valimade.memorytiles.ui.theme.Tile11Inactive
 import com.valimade.memorytiles.ui.theme.Tile1Active
@@ -18,14 +18,16 @@ import com.valimade.memorytiles.ui.theme.Tile8Inactive
 import com.valimade.memorytiles.ui.theme.Tile9Active
 import com.valimade.memorytiles.ui.theme.Tile9Inactive
 
-object FieldBuilder {
+class FieldBuilder(
+    private val palette: Palette
+) {
 
     fun fieldConstruction(difficultyLevel: DifficultyLevel, colorSelection: TileColors): List<Tile> {
         val fieldSize = difficultyLevel.quantities
 
         return when(colorSelection) {
             TileColors.MULTICOLORED -> {
-                ListPaletteColors
+                palette.listPaletteColors
                     .shuffled()
                     .take(fieldSize)
             }
@@ -80,16 +82,16 @@ object FieldBuilder {
             TileColors.BLACK_AND_WHITE -> {
                 List(fieldSize) {
                     Tile(
-                        colorActive = Color.White,
-                        colorInactive = Color.Black,
+                        colorActive = Color.Companion.White,
+                        colorInactive = Color.Companion.Black,
                     )
                 }
             }
             TileColors.WHITE_AND_BLACK -> {
                 List(fieldSize) {
                     Tile(
-                        colorActive = Color.Black,
-                        colorInactive = Color.White,
+                        colorActive = Color.Companion.Black,
+                        colorInactive = Color.Companion.White,
                     )
                 }
             }

@@ -1,5 +1,6 @@
 package com.valimade.memorytiles.game.domain.entity
 
+import com.valimade.memorytiles.game.data.entity.FieldBuilder
 import com.valimade.memorytiles.game.domain.model.DifficultyLevel
 import com.valimade.memorytiles.game.domain.model.GameResult
 import com.valimade.memorytiles.game.domain.model.Tile
