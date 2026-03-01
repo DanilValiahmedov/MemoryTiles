@@ -1,8 +1,11 @@
 package com.valimade.memorytiles.storage.di
 
-import com.valimade.memorytiles.storage.data.score.ScoreDataStore
+import com.valimade.memorytiles.storage.data.score.ScoreStore
 import com.valimade.memorytiles.storage.data.score.ScoreKeys
+import com.valimade.memorytiles.storage.data.theme.ThemeKeys
+import com.valimade.memorytiles.storage.data.theme.ThemeStore
 import com.valimade.memorytiles.storage.domain.score.ScoreInteractor
+import com.valimade.memorytiles.storage.domain.theme.ThemeInteractor
 import org.koin.dsl.module
 
 val storageModule = module {
@@ -10,11 +13,21 @@ val storageModule = module {
     //Score
     single { ScoreKeys }
     single {
-        ScoreDataStore(
+        ScoreStore(
             context = get(),
             keys = get(),
         )
     }
-    single { ScoreInteractor(scoreDataStore = get()) }
+    single { ScoreInteractor(scoreStore = get()) }
+
+    //Theme
+    single { ThemeKeys }
+    single {
+        ThemeStore(
+            context = get(),
+            keys = get(),
+        )
+    }
+    single { ThemeInteractor(themeStore = get()) }
 
 }

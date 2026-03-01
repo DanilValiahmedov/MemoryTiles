@@ -1,18 +1,18 @@
 package com.valimade.memorytiles.storage.domain.score
 
 import com.valimade.memorytiles.game.domain.model.DifficultyLevel
-import com.valimade.memorytiles.storage.data.score.ScoreDataStore
+import com.valimade.memorytiles.storage.data.score.ScoreStore
 import kotlinx.coroutines.flow.Flow
 
 class ScoreInteractor(
-    val scoreDataStore: ScoreDataStore
+    val scoreStore: ScoreStore
 ) {
     suspend fun saveScoreIfBest(difficultyLevel: DifficultyLevel, score: Int) {
-        scoreDataStore.saveScoreIfBest(difficultyLevel, score)
+        scoreStore.saveScoreIfBest(difficultyLevel, score)
     }
 
     fun getScore(difficultyLevel: DifficultyLevel): Flow<Int> {
-        return scoreDataStore.getScore(difficultyLevel)
+        return scoreStore.getScore(difficultyLevel)
     }
 
 }

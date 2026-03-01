@@ -7,4 +7,3 @@ object ScoreKeys {
     val BEST_SCORE_AVERAGE = intPreferencesKey("best_score_average")
     val BEST_SCORE_DIFFICULT = intPreferencesKey("best_score_difficult")
 }
-

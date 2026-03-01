@@ -7,10 +7,9 @@ import com.valimade.memorytiles.storage.data.dataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class ScoreDataStore(
+class ScoreStore(
     private val context: Context,
     private val keys: ScoreKeys,
-
 ) {
 
     private fun keyForDifficulty(difficulty: DifficultyLevel) =
