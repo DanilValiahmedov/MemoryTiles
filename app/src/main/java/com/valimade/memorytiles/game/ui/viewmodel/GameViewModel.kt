@@ -6,13 +6,9 @@ import com.valimade.memorytiles.R
 import com.valimade.memorytiles.game.domain.model.DifficultyLevel
 import com.valimade.memorytiles.game.domain.model.GameResult
 import com.valimade.memorytiles.game.domain.model.TileColors
-import com.valimade.memorytiles.game.domain.usecase.CheckPlayerSequenceUseCase
-import com.valimade.memorytiles.game.domain.usecase.CreatureTileSectionUseCase
-import com.valimade.memorytiles.game.domain.usecase.RefreshGameUseCase
-import com.valimade.memorytiles.game.domain.usecase.StartGameUseCase
+import com.valimade.memorytiles.game.domain.interactor.GameInteractor
 import com.valimade.memorytiles.game.ui.mapper.TileMapper
 import com.valimade.memorytiles.game.ui.model.TilesState
-import com.valimade.memorytiles.settings.data.theme.ThemeGame
 import com.valimade.memorytiles.storage.domain.score.ScoreInteractor
 import com.valimade.memorytiles.storage.domain.theme.ThemeInteractor
 import kotlinx.coroutines.delay
@@ -32,10 +28,7 @@ const val REFRESH_TIME_GAME = 1000L
 
 class GameViewModel(
     private val tileMapper: TileMapper,
-    private val startGameUseCase: StartGameUseCase,
-    private val creatureTileSectionUseCase: CreatureTileSectionUseCase,
-    private val checkPlayerSequenceUseCase: CheckPlayerSequenceUseCase,
-    private val refreshGameUseCase: RefreshGameUseCase,
+    private val gameInteractor: GameInteractor,
     private val scoreInteractor: ScoreInteractor,
     private val themeInteractor: ThemeInteractor,
 ): ViewModel() {
@@ -46,14 +39,14 @@ class GameViewModel(
     fun startGame(difficulty: DifficultyLevel, colorSelection: TileColors) {
         viewModelScope.launch {
             difficultyLevel = difficulty
-            val listTilesDomain = startGameUseCase(difficulty, colorSelection)
+            val listTilesDomain = gameInteractor.startGame(difficulty, colorSelection)
             val listTilesUi = listTilesDomain.map { domainTile ->
                 tileMapper.domainToUi(domainTile)
             }
 
             val bestScore = scoreInteractor.getScore(difficulty).first()
             val theme = themeInteractor.getTheme()
-            val gameSequence = creatureTileSectionUseCase()
+            val gameSequence = gameInteractor.creatureGameTileSection()
 
             _tileState.update {
                 it.copy(
@@ -117,7 +110,7 @@ class GameViewModel(
 
             mutableListTiles(selectedTile,false)
 
-            when(checkPlayerSequenceUseCase(selectedTile)) {
+            when(gameInteractor.checkPlayerSequence(selectedTile)) {
                 GameResult.Correct -> {
                     _tileState.update {
                         it.copy(
@@ -214,7 +207,7 @@ class GameViewModel(
 
     fun refreshGame() {
         viewModelScope.launch {
-            refreshGameUseCase()
+            gameInteractor.refreshGame()
 
             _tileState.update {
                 it.copy(
@@ -227,10 +220,12 @@ class GameViewModel(
 
             delay(REFRESH_TIME_GAME)
 
+            val gameSequence = gameInteractor.creatureGameTileSection()
+
             _tileState.update {
                 it.copy(
                     score = 0,
-                    gameSequence = creatureTileSectionUseCase(),
+                    gameSequence = gameSequence,
                     isEnabledTiles = true,
                     showSteps = true,
                 )
