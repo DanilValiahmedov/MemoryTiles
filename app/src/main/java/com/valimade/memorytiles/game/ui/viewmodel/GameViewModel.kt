@@ -71,14 +71,17 @@ class GameViewModel(
                  )
              }
 
-             for (i in _tileState.value.gameSequence) {
-                 mutableListTiles(i,true)
+             val sequence = _tileState.value.gameSequence
+             sequence.forEachIndexed { index, tileIndex ->
+                 mutableListTiles(tileIndex, true)
 
                  delay(TILES_ACTIVE_GAME_TIME)
 
-                 mutableListTiles(i,false)
+                 mutableListTiles(tileIndex, false)
 
-                 if(i != _tileState.value.gameSequence.last()) delay(TILES_INACTIVE_GAME_TIME)
+                 if (index != sequence.lastIndex) {
+                     delay(TILES_INACTIVE_GAME_TIME)
+                 }
              }
 
              _tileState.update {
@@ -185,16 +188,15 @@ class GameViewModel(
         }
 
         repeat(QUANTITY_REPEAT_AN_ERROR) {
-            for (i in 0 until _tileState.value.tiles.size) {
+            val tilesSize = _tileState.value.tiles.size
+            for (i in 0 until tilesSize) {
                 mutableListTiles(i,true)
             }
-
             delay(BLINKING_WRONG_TIME)
 
-            for (i in 0 until _tileState.value.tiles.size) {
+            for (i in 0 until tilesSize) {
                 mutableListTiles(i,false)
             }
-
             delay(BLINKING_WRONG_TIME)
         }
 
