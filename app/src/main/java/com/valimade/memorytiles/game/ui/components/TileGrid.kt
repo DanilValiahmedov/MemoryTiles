@@ -2,6 +2,7 @@ package com.valimade.memorytiles.game.ui.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -32,6 +33,10 @@ fun TileGrid(
 
         LazyVerticalGrid(
             columns = GridCells.Fixed(gridSize),
+            contentPadding = PaddingValues(
+                top = spacing,
+                bottom = spacing * 4
+            ),
             verticalArrangement = Arrangement.spacedBy(spacing),
             horizontalArrangement = Arrangement.spacedBy(spacing)
         ) {
