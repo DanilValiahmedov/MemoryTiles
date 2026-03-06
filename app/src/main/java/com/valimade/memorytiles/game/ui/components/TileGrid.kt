@@ -13,10 +13,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.valimade.memorytiles.game.ui.model.TileUi
+import com.valimade.memorytiles.settings.data.shape.ShapeTiles
 
 @Composable
 fun TileGrid(
     gridSize: Int,
+    shapeTiles: ShapeTiles,
     tiles: List<TileUi>,
     onTileClick: (Int) -> Unit,
     contentPadding: Dp = 16.dp,
@@ -44,6 +46,7 @@ fun TileGrid(
                 Tile(
                     isActive = tile.isActive,
                     sideSize = tileSize,
+                    shapeTiles = shapeTiles,
                     colorTileActive = tile.colorTileActive,
                     colorTileInactive = tile.colorTileInactive,
                     colorBorderActive = tile.colorBorderActive,

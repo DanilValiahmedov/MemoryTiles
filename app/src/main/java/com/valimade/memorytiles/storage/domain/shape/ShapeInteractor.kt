@@ -7,11 +7,11 @@ import kotlinx.coroutines.flow.Flow
 class ShapeInteractor(
     val shapeStore: ShapeStore,
 ) {
-    suspend fun save(shape: ShapeTiles) {
+    suspend fun saveShape(shape: ShapeTiles) {
         shapeStore.saveShape(shape)
     }
 
-    fun getTheme(): Flow<ShapeTiles> {
+    fun getShape(): Flow<ShapeTiles> {
         return shapeStore.getShape()
     }
 

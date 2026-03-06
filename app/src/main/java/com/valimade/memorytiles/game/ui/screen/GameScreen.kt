@@ -149,6 +149,7 @@ fun GameScreen(
 
             TileGrid(
                 gridSize = difficulty.sideLength,
+                shapeTiles = tileState.shapeTiles,
                 tiles = tileState.tiles,
                 onTileClick = {
                     if(tileState.isEnabledTiles) {

@@ -22,11 +22,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.valimade.memorytiles.settings.data.shape.ShapeTiles
 
 @Composable
 fun Tile(
     isActive: Boolean,
     sideSize: Dp,
+    shapeTiles: ShapeTiles,
     colorTileActive: Color,
     colorTileInactive: Color,
     colorBorderActive: Color,
@@ -35,6 +37,10 @@ fun Tile(
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     val isPressed by interactionSource.collectIsPressedAsState()
+    val roundedCornerShape = when(shapeTiles) {
+        ShapeTiles.SQUARE -> RoundedCornerShape(20.dp)
+        ShapeTiles.ROUND -> RoundedCornerShape(sideSize/2)
+    }
 
     val scale by animateFloatAsState(
         targetValue = when {
@@ -65,7 +71,7 @@ fun Tile(
                 scaleX = scale
                 scaleY = scale
                 shadowElevation = elevation.toPx()
-                shape = RoundedCornerShape(20.dp)
+                shape = roundedCornerShape
                 clip = true
             }
             .padding(borderWidth / 2)
@@ -76,12 +82,12 @@ fun Tile(
                         backgroundColor.copy(alpha = 0.85f)
                     )
                 ),
-                shape = RoundedCornerShape(20.dp)
+                shape = roundedCornerShape,
             )
             .border(
                 width = borderWidth,
                 color = borderColor,
-                shape = RoundedCornerShape(20.dp)
+                shape = roundedCornerShape,
             )
             .clickable(
                 interactionSource = interactionSource,

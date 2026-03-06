@@ -9,7 +9,9 @@ import com.valimade.memorytiles.game.domain.model.TileColors
 import com.valimade.memorytiles.game.domain.interactor.GameInteractor
 import com.valimade.memorytiles.game.ui.mapper.TileMapper
 import com.valimade.memorytiles.game.ui.model.TilesState
+import com.valimade.memorytiles.settings.data.shape.ShapeTiles
 import com.valimade.memorytiles.storage.domain.score.ScoreInteractor
+import com.valimade.memorytiles.storage.domain.shape.ShapeInteractor
 import com.valimade.memorytiles.storage.domain.theme.ThemeInteractor
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -31,6 +33,7 @@ class GameViewModel(
     private val gameInteractor: GameInteractor,
     private val scoreInteractor: ScoreInteractor,
     private val themeInteractor: ThemeInteractor,
+    private val shapeInteractor: ShapeInteractor,
 ): ViewModel() {
     private val _tileState = MutableStateFlow(TilesState())
     private var difficultyLevel = DifficultyLevel.EASY
@@ -46,11 +49,13 @@ class GameViewModel(
 
             val bestScore = scoreInteractor.getScore(difficulty).first()
             val theme = themeInteractor.getTheme()
+            val shapeTiles = shapeInteractor.getShape().first()
             val gameSequence = gameInteractor.creatureGameTileSection()
 
             _tileState.update {
                 it.copy(
                     tiles = listTilesUi,
+                    shapeTiles = shapeTiles,
                     gameSequence = gameSequence,
                     bestScore = bestScore,
                     backgroundImage = theme.first().background,
