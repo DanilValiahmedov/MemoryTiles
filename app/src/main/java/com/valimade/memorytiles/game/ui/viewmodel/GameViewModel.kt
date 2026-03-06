@@ -9,7 +9,6 @@ import com.valimade.memorytiles.game.domain.model.TileColors
 import com.valimade.memorytiles.game.domain.interactor.GameInteractor
 import com.valimade.memorytiles.game.ui.mapper.TileMapper
 import com.valimade.memorytiles.game.ui.model.TilesState
-import com.valimade.memorytiles.settings.data.shape.ShapeTiles
 import com.valimade.memorytiles.storage.domain.score.ScoreInteractor
 import com.valimade.memorytiles.storage.domain.shape.ShapeInteractor
 import com.valimade.memorytiles.storage.domain.theme.ThemeInteractor

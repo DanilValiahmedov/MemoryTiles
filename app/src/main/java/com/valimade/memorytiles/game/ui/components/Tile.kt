@@ -1,12 +1,15 @@
 package com.valimade.memorytiles.game.ui.components
 
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Box
@@ -15,11 +18,14 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.valimade.memorytiles.settings.data.shape.ShapeTiles
@@ -35,11 +41,11 @@ fun Tile(
     colorBorderInactive: Color,
     onClick: () -> Unit,
 ) {
-    val interactionSource = remember { MutableInteractionSource() }
-    val isPressed by interactionSource.collectIsPressedAsState()
-    val roundedCornerShape = when(shapeTiles) {
+    var isPressed by remember { mutableStateOf(false) }
+
+    val roundedCornerShape = when (shapeTiles) {
         ShapeTiles.SQUARE -> RoundedCornerShape(20.dp)
-        ShapeTiles.ROUND -> RoundedCornerShape(sideSize/2)
+        ShapeTiles.ROUND -> RoundedCornerShape(sideSize / 2)
     }
 
     val scale by animateFloatAsState(
@@ -48,6 +54,7 @@ fun Tile(
             isActive -> 1.05f
             else -> 1f
         },
+        animationSpec = spring(stiffness = Spring.StiffnessMediumLow),
     )
 
     val backgroundColor by animateColorAsState(
@@ -72,27 +79,31 @@ fun Tile(
                 scaleY = scale
                 shadowElevation = elevation.toPx()
                 shape = roundedCornerShape
-                clip = true
+                clip = false
             }
-            .padding(borderWidth / 2)
             .background(
                 brush = Brush.verticalGradient(
-                    colors = listOf(
+                    listOf(
                         backgroundColor,
                         backgroundColor.copy(alpha = 0.85f)
                     )
                 ),
-                shape = roundedCornerShape,
+                shape = roundedCornerShape
             )
             .border(
                 width = borderWidth,
                 color = borderColor,
-                shape = roundedCornerShape,
+                shape = roundedCornerShape
             )
-            .clickable(
-                interactionSource = interactionSource,
-                indication = LocalIndication.current,
-                onClick = onClick
-            )
+            .pointerInput(Unit) {
+                detectTapGestures(
+                    onPress = {
+                        isPressed = true
+                        tryAwaitRelease()
+                        isPressed = false
+                    },
+                    onTap = { onClick() }
+                )
+            }
     )
 }
