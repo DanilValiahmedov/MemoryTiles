@@ -48,9 +48,6 @@ fun GameScreen(
 ) {
     val viewModel: GameViewModel = koinViewModel()
     val tileState by viewModel.tileState.collectAsState()
-    val context = LocalContext.current
-    val soundManager = remember { SoundManager(context) }
-
 
     LaunchedEffect(Unit) {
         viewModel.startGame(difficulty, colorSelection)
@@ -157,7 +154,6 @@ fun GameScreen(
                 shapeTiles = tileState.shapeTiles,
                 tiles = tileState.tiles,
                 onTileClick = {
-                    soundManager.playClick()
                     if(tileState.isEnabledTiles) {
                         viewModel.playerTileSelection(it)
                     }
