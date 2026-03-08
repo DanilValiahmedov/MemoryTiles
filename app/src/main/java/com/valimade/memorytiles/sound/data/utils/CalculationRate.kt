@@ -8,11 +8,11 @@ const val GAP_BETWEEN_RATE_DIFFICULT = 0.1f
 
 object CalculationRate {
 
-    fun getListRate(difficultyLevel: DifficultyLevel): List<Float> {
+    fun getListRate(difficulty: DifficultyLevel): List<Float> {
         val initialRate = 0.6f
-        val quantity = difficultyLevel.quantities
+        val quantity = difficulty.quantities
 
-        return when(difficultyLevel){
+        return when(difficulty){
             DifficultyLevel.EASY -> {
                 List(quantity) { initialRate + it * GAP_BETWEEN_RATE_EASY }
             }

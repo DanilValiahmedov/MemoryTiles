@@ -29,15 +29,15 @@ class SoundManager(
         soundId = soundLibrary.loadSound(soundPool)
     }
 
-    fun startSound(difficultyLevel: DifficultyLevel) {
-        rateList = calculationRate.getListRate(difficultyLevel)
+    fun prepareRates(difficulty: DifficultyLevel) {
+        rateList = calculationRate.getListRate(difficulty)
     }
 
     fun playClick(rateIndex: Int) {
         try {
             val rate = rateList[rateIndex]
             soundPool.play(soundId, 1f, 1f, 1, 0, rate)
-        } catch (e: Exception) {
+        } catch (e: IndexOutOfBoundsException) {
             soundPool.play(soundId, 1f, 1f, 1, 0, 1f)
         }
 

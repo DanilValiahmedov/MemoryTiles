@@ -2,6 +2,7 @@ package com.valimade.memorytiles
 
 import android.app.Application
 import com.valimade.memorytiles.game.di.gameModule
+import com.valimade.memorytiles.sound.di.soundModule
 import com.valimade.memorytiles.storage.di.storageModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.GlobalContext.startKoin
@@ -14,6 +15,7 @@ class App: Application() {
             modules(
                 gameModule,
                 storageModule,
+                soundModule,
             )
         }
     }
