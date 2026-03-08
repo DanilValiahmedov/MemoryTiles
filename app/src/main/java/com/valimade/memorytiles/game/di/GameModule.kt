@@ -32,6 +32,7 @@ val gameModule = module {
             scoreInteractor = get(),
             themeInteractor = get(),
             shapeInteractor = get(),
+            soundInteractor = get(),
         )
     }
 

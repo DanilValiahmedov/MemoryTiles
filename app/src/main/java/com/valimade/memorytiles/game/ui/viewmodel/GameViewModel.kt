@@ -9,6 +9,7 @@ import com.valimade.memorytiles.game.domain.model.TileColors
 import com.valimade.memorytiles.game.domain.interactor.GameInteractor
 import com.valimade.memorytiles.game.ui.mapper.TileMapper
 import com.valimade.memorytiles.game.ui.model.TilesState
+import com.valimade.memorytiles.sound.domain.interactor.SoundInteractor
 import com.valimade.memorytiles.storage.domain.score.ScoreInteractor
 import com.valimade.memorytiles.storage.domain.shape.ShapeInteractor
 import com.valimade.memorytiles.storage.domain.theme.ThemeInteractor
@@ -33,6 +34,7 @@ class GameViewModel(
     private val scoreInteractor: ScoreInteractor,
     private val themeInteractor: ThemeInteractor,
     private val shapeInteractor: ShapeInteractor,
+    private val soundInteractor: SoundInteractor,
 ): ViewModel() {
     private val _tileState = MutableStateFlow(TilesState())
     private var difficultyLevel = DifficultyLevel.EASY
@@ -45,6 +47,8 @@ class GameViewModel(
             val listTilesUi = listTilesDomain.map { domainTile ->
                 tileMapper.domainToUi(domainTile)
             }
+
+            soundInteractor.prepareRates(difficulty)
 
             val bestScore = scoreInteractor.getScore(difficulty).first()
             val theme = themeInteractor.getTheme()
@@ -78,6 +82,7 @@ class GameViewModel(
              val sequence = _tileState.value.gameSequence
              sequence.forEachIndexed { index, tileIndex ->
                  mutableListTiles(tileIndex, true)
+                 soundInteractor.playClick(tileIndex)
 
                  delay(TILES_ACTIVE_GAME_TIME)
 
@@ -112,6 +117,7 @@ class GameViewModel(
             _tileState.update { it.copy(isEnabledTiles = false) }
 
             mutableListTiles(selectedTile,true)
+            soundInteractor.playClick(selectedTile)
 
             delay(TAP_PLAYER_TIME)
 
@@ -240,6 +246,11 @@ class GameViewModel(
             showGameTiles()
         }
 
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        soundInteractor.release()
     }
 
 }
