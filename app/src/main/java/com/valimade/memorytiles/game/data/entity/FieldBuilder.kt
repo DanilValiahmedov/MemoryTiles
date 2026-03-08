@@ -82,16 +82,16 @@ class FieldBuilder(
             TileColors.BLACK_AND_WHITE -> {
                 List(fieldSize) {
                     Tile(
-                        colorActive = Color.Companion.White,
-                        colorInactive = Color.Companion.Black,
+                        colorActive = Color.White,
+                        colorInactive = Color.Black,
                     )
                 }
             }
             TileColors.WHITE_AND_BLACK -> {
                 List(fieldSize) {
                     Tile(
-                        colorActive = Color.Companion.Black,
-                        colorInactive = Color.Companion.White,
+                        colorActive = Color.Black,
+                        colorInactive = Color.White,
                     )
                 }
             }

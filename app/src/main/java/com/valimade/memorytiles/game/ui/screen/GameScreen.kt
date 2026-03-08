@@ -36,7 +36,7 @@ import androidx.compose.ui.unit.sp
 import com.valimade.memorytiles.game.domain.model.DifficultyLevel
 import com.valimade.memorytiles.game.domain.model.TileColors
 import com.valimade.memorytiles.game.ui.components.TileGrid
-import com.valimade.memorytiles.sound.SoundManager
+import com.valimade.memorytiles.sound.domain.entity.SoundManager
 import com.valimade.memorytiles.game.ui.viewmodel.GameViewModel
 import org.koin.androidx.compose.koinViewModel
 
