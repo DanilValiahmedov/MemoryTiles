@@ -4,10 +4,13 @@ import com.valimade.memorytiles.storage.data.score.ScoreStore
 import com.valimade.memorytiles.storage.data.score.ScoreKeys
 import com.valimade.memorytiles.storage.data.shape.ShapeKeys
 import com.valimade.memorytiles.storage.data.shape.ShapeStore
+import com.valimade.memorytiles.storage.data.sound.SoundKeys
+import com.valimade.memorytiles.storage.data.sound.SoundStore
 import com.valimade.memorytiles.storage.data.theme.ThemeKeys
 import com.valimade.memorytiles.storage.data.theme.ThemeStore
 import com.valimade.memorytiles.storage.domain.score.ScoreInteractor
 import com.valimade.memorytiles.storage.domain.shape.ShapeInteractor
+import com.valimade.memorytiles.storage.domain.sound.SoundSettingsInteractor
 import com.valimade.memorytiles.storage.domain.theme.ThemeInteractor
 import org.koin.dsl.module
 
@@ -27,5 +30,10 @@ val storageModule = module {
     single { ShapeKeys }
     single { ShapeStore(context = get(), keys = get()) }
     single { ShapeInteractor(shapeStore = get()) }
+
+    //Sound
+    single { SoundKeys }
+    single { SoundStore(context = get(), keys = get()) }
+    single { SoundSettingsInteractor(soundStore = get()) }
 
 }
