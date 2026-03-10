@@ -14,5 +14,4 @@ class ThemeInteractor(
     fun getTheme(): Flow<ThemeGame> {
         return themeStore.getTheme()
     }
-
 }

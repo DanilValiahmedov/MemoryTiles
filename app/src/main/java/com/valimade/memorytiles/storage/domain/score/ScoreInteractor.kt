@@ -14,5 +14,4 @@ class ScoreInteractor(
     fun getScore(difficultyLevel: DifficultyLevel): Flow<Int> {
         return scoreStore.getScore(difficultyLevel)
     }
-
 }

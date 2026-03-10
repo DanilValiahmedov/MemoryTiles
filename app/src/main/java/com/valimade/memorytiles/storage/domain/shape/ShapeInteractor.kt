@@ -14,5 +14,4 @@ class ShapeInteractor(
     fun getShape(): Flow<ShapeTiles> {
         return shapeStore.getShape()
     }
-
 }

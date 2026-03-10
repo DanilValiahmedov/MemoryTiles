@@ -14,5 +14,4 @@ class SoundSettingsInteractor(
     fun getUsageStatus(): Flow<UsingSounds> {
         return soundStore.getUsageStatus()
     }
-
 }
