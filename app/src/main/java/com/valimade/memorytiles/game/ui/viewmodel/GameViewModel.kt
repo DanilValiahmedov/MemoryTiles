@@ -9,7 +9,9 @@ import com.valimade.memorytiles.game.domain.model.TileColors
 import com.valimade.memorytiles.game.domain.interactor.GameInteractor
 import com.valimade.memorytiles.game.ui.mapper.TileMapper
 import com.valimade.memorytiles.game.ui.model.TilesState
+import com.valimade.memorytiles.settings.data.display_speed.DisplaySpeed
 import com.valimade.memorytiles.sound.domain.interactor.SoundInteractor
+import com.valimade.memorytiles.storage.domain.display_speed.DisplaySpeedInteractor
 import com.valimade.memorytiles.storage.domain.score.ScoreInteractor
 import com.valimade.memorytiles.storage.domain.shape.ShapeInteractor
 import com.valimade.memorytiles.storage.domain.theme.ThemeInteractor
@@ -20,8 +22,6 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-const val TILES_ACTIVE_GAME_TIME = 200L
-const val TILES_INACTIVE_GAME_TIME = 300L
 const val TAP_PLAYER_TIME = 200L
 const val LEVEL_COMPLETED_TIME = 1000L
 const val QUANTITY_REPEAT_AN_ERROR = 3
@@ -35,9 +35,11 @@ class GameViewModel(
     private val themeInteractor: ThemeInteractor,
     private val shapeInteractor: ShapeInteractor,
     private val soundInteractor: SoundInteractor,
+    private val displaySpeedInteractor: DisplaySpeedInteractor,
 ): ViewModel() {
     private val _tileState = MutableStateFlow(TilesState())
     private var difficultyLevel = DifficultyLevel.EASY
+    private var displaySpeed = DisplaySpeed.MEASURED
     val tileState = _tileState.asStateFlow()
 
     fun startGame(difficulty: DifficultyLevel, colorSelection: TileColors) {
@@ -49,6 +51,7 @@ class GameViewModel(
             }
 
             soundInteractor.prepareRates(difficulty)
+            displaySpeed = displaySpeedInteractor.getDisplaySpeed().first()
 
             val bestScore = scoreInteractor.getScore(difficulty).first()
             val theme = themeInteractor.getTheme()
@@ -84,12 +87,12 @@ class GameViewModel(
                  mutableListTiles(tileIndex, true)
                  soundInteractor.playClick(tileIndex)
 
-                 delay(TILES_ACTIVE_GAME_TIME)
+                 delay(displaySpeed.activeSpeed)
 
                  mutableListTiles(tileIndex, false)
 
                  if (index != sequence.lastIndex) {
-                     delay(TILES_INACTIVE_GAME_TIME)
+                     delay(displaySpeed.inactiveSpeed)
                  }
              }
 
