@@ -4,6 +4,7 @@ import com.valimade.memorytiles.sound.data.entity.SoundLibrary
 import com.valimade.memorytiles.sound.data.utils.CalculationRate
 import com.valimade.memorytiles.sound.domain.entity.SoundManager
 import com.valimade.memorytiles.sound.domain.interactor.SoundInteractor
+import kotlinx.coroutines.CoroutineScope
 import org.koin.dsl.module
 
 val soundModule = module {
@@ -16,6 +17,12 @@ val soundModule = module {
     single { SoundManager(calculationRate = get(), soundLibrary = get()) }
 
     //Interactor
-    single { SoundInteractor(soundManager = get()) }
+    single {
+        SoundInteractor(
+            soundManager = get(),
+            soundSettings = get(),
+            scope = get()
+        )
+    }
 
 }
