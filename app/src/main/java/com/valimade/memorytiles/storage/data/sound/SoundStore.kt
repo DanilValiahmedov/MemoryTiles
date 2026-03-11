@@ -12,15 +12,15 @@ class SoundStore(
     private val keys: SoundKeys,
 ) {
 
-    suspend fun saveUsageStatus(usingSounds: UsingSounds) {
+    suspend fun saveUsageStatusSound(usingSounds: UsingSounds) {
         context.dataStore.edit { prefs ->
-            prefs[keys.CURRENT_USAGE_STATUS] = usingSounds.name
+            prefs[keys.CURRENT_USAGE_STATUS_SOUND] = usingSounds.name
         }
     }
 
-    fun getUsageStatus(): Flow<UsingSounds> {
+    fun getUsageStatusSound(): Flow<UsingSounds> {
         return context.dataStore.data.map { prefs ->
-            val result = prefs[keys.CURRENT_USAGE_STATUS] ?: UsingSounds.IS_USED.name
+            val result = prefs[keys.CURRENT_USAGE_STATUS_SOUND] ?: UsingSounds.IS_USED.name
             UsingSounds.valueOf(result)
         }
     }

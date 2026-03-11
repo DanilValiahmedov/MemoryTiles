@@ -7,11 +7,11 @@ import kotlinx.coroutines.flow.Flow
 class SoundSettingsInteractor(
     val soundStore: SoundStore
 ) {
-    suspend fun saveUsageStatus(usingSounds: UsingSounds) {
-        soundStore.saveUsageStatus(usingSounds)
+    suspend fun saveUsageStatusSound(usingSounds: UsingSounds) {
+        soundStore.saveUsageStatusSound(usingSounds)
     }
 
-    fun getUsageStatus(): Flow<UsingSounds> {
-        return soundStore.getUsageStatus()
+    fun getUsageStatusSound(): Flow<UsingSounds> {
+        return soundStore.getUsageStatusSound()
     }
 }

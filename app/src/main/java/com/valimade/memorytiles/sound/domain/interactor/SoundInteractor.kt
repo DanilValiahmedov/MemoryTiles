@@ -17,7 +17,7 @@ class SoundInteractor(
 
     init {
         scope.launch {
-            soundSettings.getUsageStatus().collect { status ->
+            soundSettings.getUsageStatusSound().collect { status ->
                 isSoundEnabled = (status == UsingSounds.IS_USED)
             }
         }
