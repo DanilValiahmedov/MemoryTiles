@@ -22,7 +22,7 @@ class VibrateClickUseCase(
         }
     }
 
-    fun invoke() {
+    operator fun invoke() {
         if (isVibrationEnabled) {
             vibrationManager.vibrateClick()
         }

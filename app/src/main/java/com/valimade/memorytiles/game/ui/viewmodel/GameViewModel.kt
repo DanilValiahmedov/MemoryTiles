@@ -15,6 +15,7 @@ import com.valimade.memorytiles.storage.domain.display_speed.DisplaySpeedInterac
 import com.valimade.memorytiles.storage.domain.score.ScoreInteractor
 import com.valimade.memorytiles.storage.domain.shape.ShapeInteractor
 import com.valimade.memorytiles.storage.domain.theme.ThemeInteractor
+import com.valimade.memorytiles.vibration.domain.usecase.VibrateClickUseCase
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -36,6 +37,7 @@ class GameViewModel(
     private val shapeInteractor: ShapeInteractor,
     private val soundInteractor: SoundInteractor,
     private val displaySpeedInteractor: DisplaySpeedInteractor,
+    private val vibrateClickUseCase: VibrateClickUseCase,
 ): ViewModel() {
     private val _tileState = MutableStateFlow(TilesState())
     private var difficultyLevel = DifficultyLevel.EASY
@@ -86,6 +88,7 @@ class GameViewModel(
              sequence.forEachIndexed { index, tileIndex ->
                  mutableListTiles(tileIndex, true)
                  soundInteractor.playClick(tileIndex)
+                 vibrateClickUseCase()
 
                  delay(displaySpeed.activeSpeed)
 
@@ -121,6 +124,7 @@ class GameViewModel(
 
             mutableListTiles(selectedTile,true)
             soundInteractor.playClick(selectedTile)
+            vibrateClickUseCase()
 
             delay(TAP_PLAYER_TIME)
 

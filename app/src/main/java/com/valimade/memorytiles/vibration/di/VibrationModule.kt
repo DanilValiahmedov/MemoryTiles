@@ -10,6 +10,12 @@ val vibrationModule = module {
     single { VibrationManager(context = get()) }
 
     //UseCase
-    single { VibrateClickUseCase(vibrationManager = get()) }
+    single {
+        VibrateClickUseCase(
+            vibrationManager = get(),
+            vibrationSettings = get(),
+            scope = get(),
+        )
+    }
 
 }

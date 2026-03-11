@@ -33,6 +33,8 @@ val gameModule = module {
             themeInteractor = get(),
             shapeInteractor = get(),
             soundInteractor = get(),
+            displaySpeedInteractor = get(),
+            vibrateClickUseCase = get(),
         )
     }
 

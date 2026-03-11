@@ -24,10 +24,10 @@ class VibrationManager(
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             vibrator.vibrate(
-                VibrationEffect.createOneShot(40, VibrationEffect.DEFAULT_AMPLITUDE)
+                VibrationEffect.createOneShot(120, VibrationEffect.DEFAULT_AMPLITUDE)
             )
         } else {
-            vibrator.vibrate(40)
+            vibrator.vibrate(120)
         }
     }
 
