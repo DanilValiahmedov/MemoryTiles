@@ -44,13 +44,12 @@ import org.koin.androidx.compose.koinViewModel
 fun GameScreen(
     modifier: Modifier,
     difficulty: DifficultyLevel,
-    colorSelection: TileColors
 ) {
     val viewModel: GameViewModel = koinViewModel()
     val tileState by viewModel.tileState.collectAsState()
 
     LaunchedEffect(Unit) {
-        viewModel.startGame(difficulty, colorSelection)
+        viewModel.startGame(difficulty)
     }
 
     Box(modifier = Modifier.fillMaxSize()) {

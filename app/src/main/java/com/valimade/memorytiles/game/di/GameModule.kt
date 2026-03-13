@@ -35,6 +35,7 @@ val gameModule = module {
             soundInteractor = get(),
             displaySpeedInteractor = get(),
             vibrateClickUseCase = get(),
+            colorTileInteractor = get(),
         )
     }
 

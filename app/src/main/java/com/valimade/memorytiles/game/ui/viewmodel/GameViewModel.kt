@@ -11,6 +11,7 @@ import com.valimade.memorytiles.game.ui.mapper.TileMapper
 import com.valimade.memorytiles.game.ui.model.TilesState
 import com.valimade.memorytiles.settings.data.display_speed.DisplaySpeed
 import com.valimade.memorytiles.sound.domain.interactor.SoundInteractor
+import com.valimade.memorytiles.storage.domain.color_tile.ColorTileInteractor
 import com.valimade.memorytiles.storage.domain.display_speed.DisplaySpeedInteractor
 import com.valimade.memorytiles.storage.domain.score.ScoreInteractor
 import com.valimade.memorytiles.storage.domain.shape.ShapeInteractor
@@ -38,15 +39,17 @@ class GameViewModel(
     private val soundInteractor: SoundInteractor,
     private val displaySpeedInteractor: DisplaySpeedInteractor,
     private val vibrateClickUseCase: VibrateClickUseCase,
+    private val colorTileInteractor: ColorTileInteractor,
 ): ViewModel() {
     private val _tileState = MutableStateFlow(TilesState())
     private var difficultyLevel = DifficultyLevel.EASY
     private var displaySpeed = DisplaySpeed.MEASURED
     val tileState = _tileState.asStateFlow()
 
-    fun startGame(difficulty: DifficultyLevel, colorSelection: TileColors) {
+    fun startGame(difficulty: DifficultyLevel) {
         viewModelScope.launch {
             difficultyLevel = difficulty
+            val colorSelection = colorTileInteractor.getColorTile().first()
             val listTilesDomain = gameInteractor.startGame(difficulty, colorSelection)
             val listTilesUi = listTilesDomain.map { domainTile ->
                 tileMapper.domainToUi(domainTile)
