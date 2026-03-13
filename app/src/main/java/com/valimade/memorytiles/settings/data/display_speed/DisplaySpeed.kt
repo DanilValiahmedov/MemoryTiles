@@ -5,8 +5,8 @@ enum class DisplaySpeed(
     val activeSpeed: Long,
     val inactiveSpeed: Long,
 ) {
-    SLOWLY("Медленно", 400, 500),
-    MEASURED("Размеренно", 300, 400),
-    QUICKLY("Быстро", 200, 300),
-    TURBO("Турбо", 150, 250),
+    SLOWLY("Медленно", 400, 400),
+    MEASURED("Размеренно", 300, 300),
+    QUICKLY("Быстро", 200, 200),
+    TURBO("Турбо", 100, 100),
 }
