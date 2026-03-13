@@ -1,5 +1,7 @@
 package com.valimade.memorytiles.storage.di
 
+import com.valimade.memorytiles.storage.data.color_tile.ColorTileKeys
+import com.valimade.memorytiles.storage.data.color_tile.ColorTileStore
 import com.valimade.memorytiles.storage.data.display_speed.DisplaySpeedKeys
 import com.valimade.memorytiles.storage.data.display_speed.DisplaySpeedStore
 import com.valimade.memorytiles.storage.data.score.ScoreStore
@@ -12,6 +14,7 @@ import com.valimade.memorytiles.storage.data.theme.ThemeKeys
 import com.valimade.memorytiles.storage.data.theme.ThemeStore
 import com.valimade.memorytiles.storage.data.vibration.VibrationKeys
 import com.valimade.memorytiles.storage.data.vibration.VibrationStore
+import com.valimade.memorytiles.storage.domain.color_tile.ColorTileInteractor
 import com.valimade.memorytiles.storage.domain.display_speed.DisplaySpeedInteractor
 import com.valimade.memorytiles.storage.domain.score.ScoreInteractor
 import com.valimade.memorytiles.storage.domain.shape.ShapeInteractor
@@ -51,5 +54,10 @@ val storageModule = module {
     single { VibrationKeys }
     single { VibrationStore(context = get(), keys = get()) }
     single { VibrationSettingsInteractor(vibrationStore = get()) }
+
+    //Color Tile
+    single { ColorTileKeys }
+    single { ColorTileStore(context = get(), keys = get()) }
+    single { ColorTileInteractor(colorTileStore = get()) }
 
 }
