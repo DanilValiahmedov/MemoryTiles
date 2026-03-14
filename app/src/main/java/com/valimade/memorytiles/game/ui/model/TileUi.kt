@@ -1,8 +1,8 @@
 package com.valimade.memorytiles.game.ui.model
 
 import androidx.compose.ui.graphics.Color
-import com.valimade.memorytiles.ui.theme.BorderActive
-import com.valimade.memorytiles.ui.theme.BorderInactive
+import com.valimade.memorytiles.core.ui.theme.BorderActive
+import com.valimade.memorytiles.core.ui.theme.BorderInactive
 
 data class TileUi(
     val isActive: Boolean = false,

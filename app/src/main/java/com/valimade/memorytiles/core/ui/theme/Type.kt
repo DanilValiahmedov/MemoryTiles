@@ -1,4 +1,4 @@
-package com.valimade.memorytiles.ui.theme
+package com.valimade.memorytiles.core.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

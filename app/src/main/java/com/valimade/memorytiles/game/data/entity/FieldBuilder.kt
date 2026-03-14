@@ -5,18 +5,18 @@ import com.valimade.memorytiles.game.data.utils.Palette
 import com.valimade.memorytiles.game.domain.model.DifficultyLevel
 import com.valimade.memorytiles.game.domain.model.Tile
 import com.valimade.memorytiles.game.domain.model.TileColors
-import com.valimade.memorytiles.ui.theme.Tile11Active
-import com.valimade.memorytiles.ui.theme.Tile11Inactive
-import com.valimade.memorytiles.ui.theme.Tile1Active
-import com.valimade.memorytiles.ui.theme.Tile1Inactive
-import com.valimade.memorytiles.ui.theme.Tile3Active
-import com.valimade.memorytiles.ui.theme.Tile3Inactive
-import com.valimade.memorytiles.ui.theme.Tile5Active
-import com.valimade.memorytiles.ui.theme.Tile5Inactive
-import com.valimade.memorytiles.ui.theme.Tile8Active
-import com.valimade.memorytiles.ui.theme.Tile8Inactive
-import com.valimade.memorytiles.ui.theme.Tile9Active
-import com.valimade.memorytiles.ui.theme.Tile9Inactive
+import com.valimade.memorytiles.core.ui.theme.Tile11Active
+import com.valimade.memorytiles.core.ui.theme.Tile11Inactive
+import com.valimade.memorytiles.core.ui.theme.Tile1Active
+import com.valimade.memorytiles.core.ui.theme.Tile1Inactive
+import com.valimade.memorytiles.core.ui.theme.Tile3Active
+import com.valimade.memorytiles.core.ui.theme.Tile3Inactive
+import com.valimade.memorytiles.core.ui.theme.Tile5Active
+import com.valimade.memorytiles.core.ui.theme.Tile5Inactive
+import com.valimade.memorytiles.core.ui.theme.Tile8Active
+import com.valimade.memorytiles.core.ui.theme.Tile8Inactive
+import com.valimade.memorytiles.core.ui.theme.Tile9Active
+import com.valimade.memorytiles.core.ui.theme.Tile9Inactive
 
 class FieldBuilder(
     private val palette: Palette

@@ -2,10 +2,10 @@ package com.valimade.memorytiles.settings.data.theme
 
 import androidx.compose.ui.graphics.Color
 import com.valimade.memorytiles.R
-import com.valimade.memorytiles.ui.theme.EmphasisBlueTheme
-import com.valimade.memorytiles.ui.theme.EmphasisGrayTheme
-import com.valimade.memorytiles.ui.theme.EmphasisGreenTheme
-import com.valimade.memorytiles.ui.theme.EmphasisRedTheme
+import com.valimade.memorytiles.core.ui.theme.EmphasisBlueTheme
+import com.valimade.memorytiles.core.ui.theme.EmphasisGrayTheme
+import com.valimade.memorytiles.core.ui.theme.EmphasisGreenTheme
+import com.valimade.memorytiles.core.ui.theme.EmphasisRedTheme
 
 enum class ThemeGame(
     val title: String,

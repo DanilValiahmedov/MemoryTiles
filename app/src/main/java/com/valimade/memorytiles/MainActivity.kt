@@ -9,9 +9,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import com.valimade.memorytiles.game.domain.model.DifficultyLevel
-import com.valimade.memorytiles.game.domain.model.TileColors
 import com.valimade.memorytiles.game.ui.screen.GameScreen
-import com.valimade.memorytiles.ui.theme.MemoryTilesTheme
+import com.valimade.memorytiles.core.ui.theme.MemoryTilesTheme
+import com.valimade.memorytiles.game.ui.screen.LevelSelectionScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,11 +20,10 @@ class MainActivity : ComponentActivity() {
         setContent {
             MemoryTilesTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    GameScreen(
+                    LevelSelectionScreen(
                         modifier = Modifier
                             .fillMaxSize()
                             .padding(innerPadding),
-                        difficulty = DifficultyLevel.DIFFICULT,
                     )
                 }
             }

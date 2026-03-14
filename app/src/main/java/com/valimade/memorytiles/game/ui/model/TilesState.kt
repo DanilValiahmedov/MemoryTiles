@@ -3,7 +3,7 @@ package com.valimade.memorytiles.game.ui.model
 import androidx.compose.ui.graphics.Color
 import com.valimade.memorytiles.R
 import com.valimade.memorytiles.settings.data.shape.ShapeTiles
-import com.valimade.memorytiles.ui.theme.EmphasisGrayTheme
+import com.valimade.memorytiles.core.ui.theme.EmphasisGrayTheme
 
 data class TilesState(
     val backgroundImage: Int = R.drawable.back_gray,
