@@ -1,4 +1,4 @@
-package com.valimade.memorytiles.storage.domain.theme
+package com.valimade.memorytiles.storage.domain.interactor.theme
 
 import com.valimade.memorytiles.settings.data.theme.ThemeGame
 import com.valimade.memorytiles.storage.data.theme.ThemeStore

@@ -1,4 +1,4 @@
-package com.valimade.memorytiles.storage.domain.color_tile
+package com.valimade.memorytiles.storage.domain.interactor.color_tile
 
 import com.valimade.memorytiles.game.domain.model.TileColors
 import com.valimade.memorytiles.storage.data.color_tile.ColorTileStore

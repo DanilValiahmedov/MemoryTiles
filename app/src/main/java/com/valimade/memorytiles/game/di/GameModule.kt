@@ -29,13 +29,9 @@ val gameModule = module {
         GameViewModel(
             tileMapper = get(),
             gameInteractor = get(),
-            scoreInteractor = get(),
-            themeInteractor = get(),
-            shapeInteractor = get(),
             soundInteractor = get(),
-            displaySpeedInteractor = get(),
             vibrateClickUseCase = get(),
-            colorTileInteractor = get(),
+            settingsInteractor = get(),
         )
     }
 

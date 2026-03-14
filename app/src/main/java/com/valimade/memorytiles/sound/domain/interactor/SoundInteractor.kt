@@ -3,7 +3,7 @@ package com.valimade.memorytiles.sound.domain.interactor
 import com.valimade.memorytiles.game.domain.model.DifficultyLevel
 import com.valimade.memorytiles.sound.domain.entity.SoundManager
 import com.valimade.memorytiles.sound.domain.model.UsingSounds
-import com.valimade.memorytiles.storage.domain.sound.SoundSettingsInteractor
+import com.valimade.memorytiles.storage.domain.interactor.sound.SoundSettingsInteractor
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 

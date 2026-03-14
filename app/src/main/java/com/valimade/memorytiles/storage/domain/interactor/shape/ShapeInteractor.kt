@@ -1,4 +1,4 @@
-package com.valimade.memorytiles.storage.domain.shape
+package com.valimade.memorytiles.storage.domain.interactor.shape
 
 import com.valimade.memorytiles.settings.data.shape.ShapeTiles
 import com.valimade.memorytiles.storage.data.shape.ShapeStore

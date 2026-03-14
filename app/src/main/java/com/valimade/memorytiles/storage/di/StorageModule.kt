@@ -14,13 +14,14 @@ import com.valimade.memorytiles.storage.data.theme.ThemeKeys
 import com.valimade.memorytiles.storage.data.theme.ThemeStore
 import com.valimade.memorytiles.storage.data.vibration.VibrationKeys
 import com.valimade.memorytiles.storage.data.vibration.VibrationStore
-import com.valimade.memorytiles.storage.domain.color_tile.ColorTileInteractor
-import com.valimade.memorytiles.storage.domain.display_speed.DisplaySpeedInteractor
-import com.valimade.memorytiles.storage.domain.score.ScoreInteractor
-import com.valimade.memorytiles.storage.domain.shape.ShapeInteractor
-import com.valimade.memorytiles.storage.domain.sound.SoundSettingsInteractor
-import com.valimade.memorytiles.storage.domain.theme.ThemeInteractor
-import com.valimade.memorytiles.storage.domain.vibration.VibrationSettingsInteractor
+import com.valimade.memorytiles.storage.domain.interactor.SettingsGameInteractor
+import com.valimade.memorytiles.storage.domain.interactor.color_tile.ColorTileInteractor
+import com.valimade.memorytiles.storage.domain.interactor.display_speed.DisplaySpeedInteractor
+import com.valimade.memorytiles.storage.domain.interactor.score.ScoreInteractor
+import com.valimade.memorytiles.storage.domain.interactor.shape.ShapeInteractor
+import com.valimade.memorytiles.storage.domain.interactor.sound.SoundSettingsInteractor
+import com.valimade.memorytiles.storage.domain.interactor.theme.ThemeInteractor
+import com.valimade.memorytiles.storage.domain.interactor.vibration.VibrationSettingsInteractor
 import org.koin.dsl.module
 
 val storageModule = module {
@@ -59,5 +60,16 @@ val storageModule = module {
     single { ColorTileKeys }
     single { ColorTileStore(context = get(), keys = get()) }
     single { ColorTileInteractor(colorTileStore = get()) }
+
+    //Settings Game
+    single {
+        SettingsGameInteractor(
+            score = get(),
+            theme = get(),
+            shape = get(),
+            displaySpeed = get(),
+            colorTile = get(),
+        )
+    }
 
 }

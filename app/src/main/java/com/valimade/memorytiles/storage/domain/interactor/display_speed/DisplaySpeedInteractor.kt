@@ -1,4 +1,4 @@
-package com.valimade.memorytiles.storage.domain.display_speed
+package com.valimade.memorytiles.storage.domain.interactor.display_speed
 
 import com.valimade.memorytiles.settings.data.display_speed.DisplaySpeed
 import com.valimade.memorytiles.storage.data.display_speed.DisplaySpeedStore

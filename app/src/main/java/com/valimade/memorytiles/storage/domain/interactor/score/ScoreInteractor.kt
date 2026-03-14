@@ -1,4 +1,4 @@
-package com.valimade.memorytiles.storage.domain.score
+package com.valimade.memorytiles.storage.domain.interactor.score
 
 import com.valimade.memorytiles.game.domain.model.DifficultyLevel
 import com.valimade.memorytiles.storage.data.score.ScoreStore

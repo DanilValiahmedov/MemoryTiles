@@ -1,6 +1,6 @@
 package com.valimade.memorytiles.vibration.domain.usecase
 
-import com.valimade.memorytiles.storage.domain.vibration.VibrationSettingsInteractor
+import com.valimade.memorytiles.storage.domain.interactor.vibration.VibrationSettingsInteractor
 import com.valimade.memorytiles.vibration.data.entity.VibrationManager
 import com.valimade.memorytiles.vibration.domain.model.UsingVibration
 import kotlinx.coroutines.CoroutineScope

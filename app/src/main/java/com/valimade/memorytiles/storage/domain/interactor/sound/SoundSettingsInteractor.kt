@@ -1,4 +1,4 @@
-package com.valimade.memorytiles.storage.domain.sound
+package com.valimade.memorytiles.storage.domain.interactor.sound
 
 import com.valimade.memorytiles.sound.domain.model.UsingSounds
 import com.valimade.memorytiles.storage.data.sound.SoundStore

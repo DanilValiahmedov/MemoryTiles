@@ -1,4 +1,4 @@
-package com.valimade.memorytiles.storage.domain.vibration
+package com.valimade.memorytiles.storage.domain.interactor.vibration
 
 import com.valimade.memorytiles.storage.data.vibration.VibrationStore
 import com.valimade.memorytiles.vibration.domain.model.UsingVibration

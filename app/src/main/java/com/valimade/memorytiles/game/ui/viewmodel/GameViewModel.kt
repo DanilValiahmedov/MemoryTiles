@@ -5,17 +5,12 @@ import androidx.lifecycle.viewModelScope
 import com.valimade.memorytiles.R
 import com.valimade.memorytiles.game.domain.model.DifficultyLevel
 import com.valimade.memorytiles.game.domain.model.GameResult
-import com.valimade.memorytiles.game.domain.model.TileColors
 import com.valimade.memorytiles.game.domain.interactor.GameInteractor
 import com.valimade.memorytiles.game.ui.mapper.TileMapper
 import com.valimade.memorytiles.game.ui.model.TilesState
 import com.valimade.memorytiles.settings.data.display_speed.DisplaySpeed
 import com.valimade.memorytiles.sound.domain.interactor.SoundInteractor
-import com.valimade.memorytiles.storage.domain.color_tile.ColorTileInteractor
-import com.valimade.memorytiles.storage.domain.display_speed.DisplaySpeedInteractor
-import com.valimade.memorytiles.storage.domain.score.ScoreInteractor
-import com.valimade.memorytiles.storage.domain.shape.ShapeInteractor
-import com.valimade.memorytiles.storage.domain.theme.ThemeInteractor
+import com.valimade.memorytiles.storage.domain.interactor.SettingsGameInteractor
 import com.valimade.memorytiles.vibration.domain.usecase.VibrateClickUseCase
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -33,13 +28,9 @@ const val REFRESH_TIME_GAME = 1000L
 class GameViewModel(
     private val tileMapper: TileMapper,
     private val gameInteractor: GameInteractor,
-    private val scoreInteractor: ScoreInteractor,
-    private val themeInteractor: ThemeInteractor,
-    private val shapeInteractor: ShapeInteractor,
     private val soundInteractor: SoundInteractor,
-    private val displaySpeedInteractor: DisplaySpeedInteractor,
     private val vibrateClickUseCase: VibrateClickUseCase,
-    private val colorTileInteractor: ColorTileInteractor,
+    private val settingsInteractor: SettingsGameInteractor,
 ): ViewModel() {
     private val _tileState = MutableStateFlow(TilesState())
     private var difficultyLevel = DifficultyLevel.EASY
@@ -49,18 +40,18 @@ class GameViewModel(
     fun startGame(difficulty: DifficultyLevel) {
         viewModelScope.launch {
             difficultyLevel = difficulty
-            val colorSelection = colorTileInteractor.getColorTile().first()
+            val colorSelection = settingsInteractor.colorTile.getColorTile().first()
             val listTilesDomain = gameInteractor.startGame(difficulty, colorSelection)
             val listTilesUi = listTilesDomain.map { domainTile ->
                 tileMapper.domainToUi(domainTile)
             }
 
             soundInteractor.prepareRates(difficulty)
-            displaySpeed = displaySpeedInteractor.getDisplaySpeed().first()
+            displaySpeed = settingsInteractor.displaySpeed.getDisplaySpeed().first()
 
-            val bestScore = scoreInteractor.getScore(difficulty).first()
-            val theme = themeInteractor.getTheme()
-            val shapeTiles = shapeInteractor.getShape().first()
+            val bestScore = settingsInteractor.score.getScore(difficulty).first()
+            val theme = settingsInteractor.theme.getTheme()
+            val shapeTiles = settingsInteractor.shape.getShape().first()
             val gameSequence = gameInteractor.creatureGameTileSection()
 
             _tileState.update {
@@ -157,8 +148,8 @@ class GameViewModel(
                 }
                 GameResult.LevelCompleted -> {
                     val score = _tileState.value.score + 1
-                    scoreInteractor.saveScoreIfBest(difficultyLevel, score)
-                    val bestScore = scoreInteractor.getScore(difficultyLevel).first()
+                    settingsInteractor.score.saveScoreIfBest(difficultyLevel, score)
+                    val bestScore = settingsInteractor.score.getScore(difficultyLevel).first()
 
                     _tileState.update {
                         it.copy(
